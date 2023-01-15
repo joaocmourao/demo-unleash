@@ -1,0 +1,32 @@
+version: "3.7"
+
+services:
+    postgres:
+        image: postgres:10-alpine
+        restart: always
+        ports:
+            - "5431:5432"
+        environment:
+            POSTGRES_DB: unleash
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: pass
+        volumes:
+            - ./docker/postgresql/:/docker-entrypoint-initdb.d
+
+    unleash:
+        image: unleashorg/unleash-server:3.4.2
+        ports:
+            - "4242:4242"
+        environment:
+            - DATABASE_URL=postgres://postgres:pass@postgres:5432/unleash
+        depends_on:
+            - postgres
+        command: >
+            sh -c "
+              while ! nc -z postgres 5432; do
+                echo 'Postgres is unavailable.'
+                sleep 1
+              done
+              npm run start"
+        links:
+            - postgres
