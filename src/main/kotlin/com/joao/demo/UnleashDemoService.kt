@@ -9,7 +9,7 @@ class UnleashDemoService(
         private val featureToggleService: FeatureToggleService
 ) {
     fun isFeatureFlagOn(): String{
-        return if(featureToggleService.isActive(FeatureToggleEnum.TEST_USER)) {
+        return if(featureToggleService.isActive(FeatureToggleEnum.TEST_FLAG)) {
             "flag is on"
         } else {
             "flag is off"

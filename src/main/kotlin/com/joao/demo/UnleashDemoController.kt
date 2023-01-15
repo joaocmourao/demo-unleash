@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/api/unleash-demo/")
+@RequestMapping("/api/unleash-demo")
 class UnleashDemoController(
         private val unleashDemoService: UnleashDemoService
 ) {
